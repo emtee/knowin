@@ -1,6 +1,6 @@
 class WelcomeController < ApplicationController
   require 'fileutils'
-  require 'iconv'
+  # require 'iconv'
 
   # http://stackoverflow.com/questions/6061838/running-a-constructer-from-within-a-controller
   def upload

@@ -1,6 +1,6 @@
 class Dataset
   require 'fileutils'
-  require 'iconv'
+  # require 'iconv'
 
   include Mongoid::Document
   include Mongoid::Timestamps
