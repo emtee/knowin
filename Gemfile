@@ -14,6 +14,10 @@ group :development do
 #   gem 'binding_of_caller'
 end
 
+group :production do
+  gem "thin"
+end
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
