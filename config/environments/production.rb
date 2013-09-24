@@ -11,6 +11,8 @@ Govindata::Application.configure do
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = false
 
+  config.assets.enabled = false
+
   # Compress JavaScripts and CSS
   config.assets.compress = false
 
@@ -19,6 +21,7 @@ Govindata::Application.configure do
 
   # Generate digests for assets URLs
   config.assets.digest = false
+
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
@@ -61,6 +64,5 @@ Govindata::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.assets.enabled = false
 
 end
