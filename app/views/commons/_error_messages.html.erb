@@ -1,0 +1,24 @@
+<% if flash[:warning].present? %>
+<div class="n_warning">
+	<p>
+		<!-- Attention notification. Lorem ipsum dolor sit amet, consetetur, sed diam nonumyeirmod tempor. -->
+		<%= flash[:warning] %>
+	</p>
+</div>
+<% end %>
+<%if flash[:notice].present? %>
+<div class="n_ok">
+	<p>
+		<!-- Success notification. Lorem ipsum dolor sit amet, consetetur, sed diam nonumyeirmod tempor. -->
+		<%= flash[:notice] %>
+	</p>
+</div>
+<% end %>
+<%if flash[:error].present? %>
+<div class="n_error">
+	<p>
+		<!-- Error notification. Lorem ipsum dolor sit amet, consetetur, sed diam nonumyeirmod tempor. -->
+		<%= flash[:error] %>
+	</p>
+</div>
+<% end %>

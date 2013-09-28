@@ -1,4 +1,5 @@
 class DatasetsController < ApplicationController
+  before_filter :authenticate_user!
 
   def index
     @datasets = Dataset.all
@@ -37,7 +38,8 @@ class DatasetsController < ApplicationController
     respond_to do |format|
       result = Dataset.save_data_model params
       if result[:status] == "success"
-        unless Dataset.find_by(title: result[:dataset][:title]).present?
+        dataset_exists = Dataset.find_by(title: result[:dataset][:title]).present? rescue nil
+        unless dataset_exists
           @dataset = Dataset.new(result[:dataset])
           @dataset.save
         else
