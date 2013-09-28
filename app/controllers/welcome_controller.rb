@@ -66,4 +66,11 @@ CODE
     # end
     redirect_to root_path
   end
+
+  def create_default_admin
+    user = User.new({:email => "amit.scorpio42@gmail.com", :username => "admin", :password => "Password@1234", 
+      :password_confirmation => "Password@1234"})
+    user.save
+    redirect_to root_path
+  end
 end
