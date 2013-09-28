@@ -8,7 +8,7 @@
   <div class="entry">
     <div class="sep"></div>
   </div>
-  <table>
+  <table id="datasets">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -16,10 +16,9 @@
         <th scope="col">Author</th>
         <th scope="col">Category</th>
         <th scope="col">Created On</th>
-        <th scope="col" style="width: 65px;">Modify</th>
+        <th scope="col">Modify</th>
       </tr>
     </thead>
-
     <tbody>
       <% @datasets.each do |dataset| %>
       <tr>
@@ -38,7 +37,7 @@
     </tbody>
   </table>
   <div class="entry">
-    <div class="pagination">
+    <!-- <div class="pagination">
       <span>« First</span>
       <span class="active">1</span>
       <a href="">2</a>
@@ -48,7 +47,7 @@
       <a href="">23</a>
       <a href="">24</a>
       <a href="">Last »</a>
-    </div>
+    </div> -->
     <div class="sep"></div>
     <%= link_to 'Add New Dataset', new_dataset_path, :class => "button add" %>
     <a class="button" href="">Categories</a>
@@ -56,3 +55,11 @@
 </div>
 
 
+<script type="text/javascript">
+$(document).ready(function(){
+  $("#datasets").dataTable({
+    "sPaginationType": "full_numbers",
+    "bJQueryUI": true
+  });
+});
+</script>

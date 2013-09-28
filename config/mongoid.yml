@@ -82,13 +82,14 @@ production:
   sessions:
     default:
       # database: govindata_development
-      # uri: "mongodb://heroku:5ed54ee8b4b34b1824a1a2a916987b1e@paulo.mongohq.com:10037/app18250411"
-      uri: <%= ENV['MONGOHQ_URL'] %>
+      uri: "mongodb://heroku:5ed54ee8b4b34b1824a1a2a916987b1e@paulo.mongohq.com:10037/app18250411"
+      # uri: <%= ENV['MONGOHQ_URL'] %>
       # hosts:
       #   - localhost:27017
       options:
         skip_version_check: true
         safe: true
+        raise_not_found_error: false
         # consistency: :strong
         # # In the test environment we lower the retries and retry interval to
         # # low amounts for fast failures.

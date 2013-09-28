@@ -1,0 +1,19 @@
+<%= devise_error_messages! %>
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+		<label for="login">Username:</label>
+		<!-- <input id="login" name="login" class="text" /> -->
+		<%= f.text_field :username, :autofocus => true, :class => "text" %>
+		<label for="pass">Password:</label>
+		<!-- <input id="pass" name="pass" type="password" class="text" /> -->
+		<%= f.password_field :password, :class=>"text" %>
+		<div class="sep"></div>
+		<%#= f.button "Login", :class => "ok" %>
+		<button type="submit" class="ok">Login</button> 
+		<a class="button" href="">Forgotten password?</a>
+<% end %>
+	
+
+<%# if devise_mapping.rememberable? -%>
+<!-- <div><%#= f.check_box :remember_me %> <%#= f.label :remember_me %></div> -->
+<%# end -%>
+<%#= render "devise/shared/links" %>

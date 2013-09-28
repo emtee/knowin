@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="pl" xml:lang="pl">
+<html>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="author" content="Paweł 'kilab' Balicki - kilab.pl" />
 	<title>SimpleAdmin</title>
-	<%= stylesheet_link_tag    "application", :media => "all" %>
-	<%= javascript_include_tag "application" %>
+	<%#= stylesheet_link_tag    "application", :media => "all" %>
+	<%#= javascript_include_tag "application" %>
+	<link rel="stylesheet" type="text/css" href="/assets/application.css" media="screen" />
+	<script src="/assets/application.js" type="text/javascript"></script>
+	
 	<%= csrf_meta_tags %>
 	<link rel="stylesheet" type="text/css" href="/assets/style.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="/assets/navi.css" media="screen" />
@@ -25,16 +28,15 @@
 			<div id="top">
 				<div class="left">
 					<p>
-						Welcome, <strong>Paweł B.</strong>
-						[
-						<a href="">logout</a>
-						]
+						Welcome, <strong><%= current_user.username.titleize rescue nil %></strong>
+						[ <%= link_to("Logout", destroy_user_session_path, :method => :delete) %> ]
 					</p>
 				</div>
 				<div class="right">
 					<div class="align-right">
 						<p>
-							Last login: <strong>23-04-2012 23:12</strong>
+							<!-- Last login: <strong>23-04-2012 23:12</strong> -->
+							Last login: <strong><%= time_ago_in_words current_user.last_sign_in_at %> ago</strong>
 						</p>
 					</div>
 				</div>

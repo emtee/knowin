@@ -1,11 +1,20 @@
 Govindata::Application.routes.draw do
+  authenticated :user do
+    # root :to => "home#index"
+    root :to => 'welcome#index'
+  end
+  
+  devise_for :users do
+    root to: "devise/sessions#new"
+  end
+
+    root :to => 'welcome#index'
   resources :datasets
 
 
   post "/welcome/upload" => "welcome#upload"
 
   # root :to => 'datasets#index'
-  root :to => 'welcome#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

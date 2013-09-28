@@ -7,6 +7,7 @@ gem 'roo'
 gem 'thor'
 gem 'multi_json', '1.5.1'
 gem 'smarter_csv'
+gem 'devise'
 # gem 'rubyzip', :require => 'zip/zipfilesystem'
 
 group :development do
@@ -19,22 +20,17 @@ group :production do
   gem "thin"
 end
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-# Gems used only for assets and not required
-# in production environments by default.
   gem 'sass-rails',   '3.2.5'
-group :assets do
+  group :assets do
+  end
   gem 'coffee-rails', '~> 3.2.1'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
   gem 'uglifier', '>= 1.0.3'
   gem "therubyracer"
   gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git'
-  gem 'jquery-ui-rails'
-end
 
+gem 'jquery-ui-rails'
 gem "sass_rails_patch", "~> 0.0.1"
 
 gem 'jquery-rails'
@@ -56,4 +52,3 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 gem 'rb-readline', '~> 0.5.0', require: 'readline'
-
