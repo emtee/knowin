@@ -1,5 +1,5 @@
 Govindata::Application.routes.draw do
-  match "/create_default_admin" => "welcome#create_default_admin"
+  # match "/create_default_admin" => "welcome#create_default_admin"
   authenticated :user do
     # root :to => "home#index"
     root :to => 'welcome#index'
