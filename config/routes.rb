@@ -4,7 +4,8 @@ Govindata::Application.routes.draw do
 
   post "/welcome/upload" => "welcome#upload"
 
-  root :to => 'datasets#index'
+  # root :to => 'datasets#index'
+  root :to => 'welcome#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

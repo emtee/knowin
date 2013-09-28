@@ -1,25 +1,51 @@
-<p id="notice"><%= notice %></p>
+<div class="full_w">
+	<%= flash[:notice] %>
+	<div class="h_title">Dataset Details</div>
+	<h2>
+		<%= @dataset.title.titleize %></h2>
+	<p>
+		Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diamvolupt
+	</p>
+	<p>
+		<%= @dataset.description %></p>
 
-<p>
-  <b>Title:</b>
-  <%= @dataset.title %>
-</p>
+	<div class="entry">
+		<div class="sep"></div>
+	</div>
+	<table id="dataset_content" class="display">
+		<thead>
+			<tr>
+				<% eval(@dataset.model_classname).new.attribute_names[1..-1].each do |attrb| %>
+				<th scope="col">
+					<%= attrb.humanize %></th>
+				<% end %></tr>
+		</thead>
+		<tbody>
+			<%# eval(@dataset.model_classname).all[1..-1].each do |datarow| %>
+			<% eval(@dataset.model_classname).all.each do |datarow| %>
+			<tr>
+				<% eval(@dataset.model_classname).new.attribute_names[1..-1].each do |attrb| %>
+				<td><%= datarow.instance_eval(attrb) %></td>
+				<% end %>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+	<div style="clear:both"></div>
+	<div class="sep"></div>
+	<div class="entry">
+		
+		<%= link_to 'Add New Dataset', new_dataset_path, :class =>
+		"button add" %>
+		<a class="button" href="">Categories</a>
+	</div>
+</div>
 
-<p>
-  <b>Description:</b>
-  <%= @dataset.description %>
-</p>
-
-<p>
-  <b>Model name:</b>
-  <%= @dataset.model_classname %>
-</p>
-
-<p>
-  <b>Model filename:</b>
-  <%= @dataset.model_filename %>
-</p>
-
-
-<%= link_to 'Edit', edit_dataset_path(@dataset) %> |
-<%= link_to 'Back', datasets_path %>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#dataset_content").dataTable({
+		"sPaginationType": "full_numbers",
+		"bJQueryUI": true
+	});
+});
+</script>

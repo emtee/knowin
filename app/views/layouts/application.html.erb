@@ -1,14 +1,209 @@
 <!DOCTYPE html>
-<html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl" xml:lang="pl">
 <head>
-  <title>Govindata</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="Paweł 'kilab' Balicki - kilab.pl" />
+	<title>SimpleAdmin</title>
+	<%= stylesheet_link_tag    "application", :media => "all" %>
+	<%= javascript_include_tag "application" %>
+	<%= csrf_meta_tags %>
+	<link rel="stylesheet" type="text/css" href="/assets/style.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="/assets/navi.css" media="screen" />
+	<!--<script type="text/javascript" src="/assets/jquery-1.7.2.min.js"></script>-->
+	<script type="text/javascript">
+		$(function(){
+			$(".box .h_title").not(this).next("ul").hide("normal");
+			$(".box .h_title").not(this).next("#home").show("normal");
+			$(".box").children(".h_title").click( function() { $(this).next("ul").slideToggle(); });
+		});
+	</script>
 </head>
 <body>
+	<div class="wrap">
+		<div id="header">
+			<div id="top">
+				<div class="left">
+					<p>
+						Welcome, <strong>Paweł B.</strong>
+						[
+						<a href="">logout</a>
+						]
+					</p>
+				</div>
+				<div class="right">
+					<div class="align-right">
+						<p>
+							Last login: <strong>23-04-2012 23:12</strong>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div id="nav">
+				<ul>
+					<li class="upp">
+						<a href="#">Main control</a>
+						<ul>
+							<li>
+								&#8250;
+								<a href="/">Home</a>
+							</li>
+							<li>
+								&#8250;
+								<a href="">Reports</a>
+							</li>
+							<li>
+								&#8250;
+								<%= link_to "Add new Dataset", new_dataset_path %>
+							</li>
+							<li>
+								&#8250;
+								<a href="">Site config</a>
+							</li>
+						</ul>
+					</li>
+					<li class="upp">
+						<a href="#">Manage content</a>
+						<ul>
+							<li>
+								&#8250;
+								<%= link_to "Show all datasets", datasets_path %>
+							</li>
+							<li>
+								&#8250;
+								<%= link_to "Add new Dataset", new_dataset_path %>
+							</li>
+							<li>
+								&#8250;
+								<a href="">Add new gallery</a>
+							</li>
+							<li>
+								&#8250;
+								<a href="">Categories</a>
+							</li>
+						</ul>
+					</li>
+					<li class="upp">
+						<a href="#">Users</a>
+						<ul>
+							<li>
+								&#8250;
+								<a href="">Show all uses</a>
+							</li>
+							<li>
+								&#8250;
+								<a href="">Add new user</a>
+							</li>
+							<li>
+								&#8250;
+								<a href="">Lock users</a>
+							</li>
+						</ul>
+					</li>
+					<li class="upp">
+						<a href="#">Settings</a>
+						<ul>
+							<li>
+								&#8250;
+								<a href="">Site configuration</a>
+							</li>
+							<li>
+								&#8250;
+								<a href="">Contact Form</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
 
-<%= yield %>
+		<div id="content">
+			<div id="sidebar">
+				<div class="box">
+					<div class="h_title">&#8250; Main control</div>
+					<ul id="home">
+						<li class="b1">
+							<a class="icon view_page" href="/">Home</a>
+						</li>
+						<li class="b2">
+							<a class="icon report" href="">Reports</a>
+						</li>
+						<li class="b1">
+							<%= link_to "Add new Dataset", new_dataset_path, :class => "icon add_page" %>
+						</li>
+						<li class="b2">
+							<a class="icon config" href="">Site config</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="box">
+					<div class="h_title">&#8250; Manage content</div>
+					<ul>
+						<li class="b1">
+							<%= link_to "Show all datasets", datasets_path, :class => "icon page" %>
+						</li>
+						<li class="b2">
+							<%= link_to "Add new Dataset", new_dataset_path, :class => "icon add_page" %>
+						</li>
+						<li class="b1">
+							<a class="icon photo" href="">Add new gallery</a>
+						</li>
+						<li class="b2">
+							<a class="icon category" href="">Categories</a>
+						</li>
+					</ul>
+				</div>
+				<div class="box">
+					<div class="h_title">&#8250; Users</div>
+					<ul>
+						<li class="b1">
+							<a class="icon users" href="">Show all users</a>
+						</li>
+						<li class="b2">
+							<a class="icon add_user" href="">Add new user</a>
+						</li>
+						<li class="b1">
+							<a class="icon block_users" href="">Lock users</a>
+						</li>
+					</ul>
+				</div>
+				<div class="box">
+					<div class="h_title">&#8250; Settings</div>
+					<ul>
+						<li class="b1">
+							<a class="icon config" href="">Site configuration</a>
+						</li>
+						<li class="b2">
+							<a class="icon contact" href="">Contact Form</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div id="main">
+				<%= yield %>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+		<div id="footer">
+			<div class="left">
+				<p>
+					Design:
+					<a href="http://kilab.pl">Paweł Balicki</a>
+					| Admin Panel:
+					<a href="">YourSite.com</a>
+				</p>
+			</div>
+			<div class="right">
+				<p>
+					<a href="">Example link 1</a>
+					|
+					<a href="">Example link 2</a>
+				</p>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>

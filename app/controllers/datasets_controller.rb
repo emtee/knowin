@@ -11,10 +11,12 @@ class DatasetsController < ApplicationController
 
   def show
     @dataset = Dataset.find(params[:id])
+    @dataset.init_model
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @dataset }
+      # format.json { render json: @dataset.as_json(:methods => Dataset.content ) }
+      format.json { render json: @dataset.to_json(:methods => :content ) }
     end
   end
 
@@ -35,8 +37,12 @@ class DatasetsController < ApplicationController
     respond_to do |format|
       result = Dataset.save_data_model params
       if result[:status] == "success"
-        @dataset = Dataset.new(result[:dataset])
-        @dataset.save
+        unless Dataset.find_by(title: result[:dataset][:title]).present?
+          @dataset = Dataset.new(result[:dataset])
+          @dataset.save
+        else
+          @dataset = Dataset.find_by(title: result[:dataset][:title])
+        end
         format.html { redirect_to @dataset, notice: 'Dataset was successfully created.' }
       else
         @dataset = Dataset.new(params[:dataset])

@@ -1,0 +1,11 @@
+#class NumberOfPostOfficesLetterBoxesAndPostalArticle
+  include Mongoid::Document
+  include Mongoid::Timestamps
+
+  field :no_of_post_offices
+	field :no_of_letter_boxes
+	field :unregistered_articles_estimated_number_of_postal_articles_handled_excluding_money_orders_000
+	field :registered_articles_estimated_number_of_postal_articles_handled_excluding_money_orders_000
+	field :speed_posts_n_expres_parcel_posts_estimated_number_of_postal_articles_handled_excluding_money_orders_000
+	field :total_mail_traffic_estimated_number_of_postal_articles_handled_excluding_money_orders_000
+#end       

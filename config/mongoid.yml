@@ -51,7 +51,7 @@ development:
 
     # Raise an error when performing a #find and the document is not found.
     # (default: true)
-    # raise_not_found_error: true
+    raise_not_found_error: false
 
     # Raise an error when defining a scope with the same name as an
     # existing method. (default: false)
@@ -82,7 +82,8 @@ production:
   sessions:
     default:
       # database: govindata_development
-      uri: "mongodb://heroku:5ed54ee8b4b34b1824a1a2a916987b1e@paulo.mongohq.com:10037/app18250411"
+      # uri: "mongodb://heroku:5ed54ee8b4b34b1824a1a2a916987b1e@paulo.mongohq.com:10037/app18250411"
+      uri: <%= ENV['MONGOHQ_URL'] %>
       # hosts:
       #   - localhost:27017
       options:

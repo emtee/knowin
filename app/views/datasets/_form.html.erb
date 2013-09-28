@@ -1,9 +1,7 @@
-<%#= raise @dataset.inspect %>
 <%= form_for @dataset , :html => {:multipart => true} do |f| %>
   <% if @dataset.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@dataset.errors.count, "error") %> prohibited this dataset from being saved:</h2>
-
       <ul>
       <% @dataset.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -11,20 +9,47 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
+  <div class="element">
+    <label for="name">
+      Dataset title
+      <span class="red">(required)</span>
+    </label>
+    <%= f.text_field :title, :class => "text" %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description, :rows => 5 %>
+  <div class="element">
+    <label for="category">
+      Category
+      <span class="red">(required)</span>
+    </label>
+    <select name="category" class="err">
+      <option value="0">-- select category</option>
+      <option value="1">Category 1</option>
+      <option value="2">Category 4</option>
+      <option value="3">Category 3</option>
+    </select>
   </div>
-  <div class="field">
-    <%= f.label :dataset_source_file %><br />
+  <!-- <div class="element">
+    <label for="comments">Comments</label>
+    <input type="radio" name="comments" value="on" checked="checked" />
+    Enabled
+    <input type="radio" name="comments" value="off" />
+    Disabled
+  </div> -->
+  <div class="element">
+    <label for="attach">Dataset Source file</label>
     <%= file_field_tag :source_file %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="element">
+    <label for="content">
+      Description
+      <span>(Describe about the dataset in a few words)</span>
+    </label>
+    <%= f.text_area :description, :rows => 5, :class => "textarea" %>
+    <!-- <textarea name="content" class="textarea" rows="10"></textarea> -->
+  </div>
+  <div class="entry">
+    <!-- <button type="submit">Preview</button> -->
+    <button type="submit" class="add">Save Dataset</button>
+    <button class="cancel">Cancel</button>
   </div>
 <% end %>
