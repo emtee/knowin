@@ -17,8 +17,8 @@ class User
   # field :reset_password_token,   :type => String
   # field :reset_password_sent_at, :type => Time
 
-  # ## Rememberable
-  # field :remember_created_at, :type => Time
+  ## Rememberable
+  field :remember_created_at, :type => Time
 
   # ## Trackable
   # field :sign_in_count,      :type => Integer, :default => 0
