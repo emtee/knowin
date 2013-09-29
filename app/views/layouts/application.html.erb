@@ -50,18 +50,18 @@
 								&#8250;
 								<a href="/">Home</a>
 							</li>
-							<li>
+							<!-- <li>
 								&#8250;
 								<a href="">Reports</a>
-							</li>
+							</li> -->
 							<li>
 								&#8250;
 								<%= link_to "Add new Dataset", new_dataset_path %>
 							</li>
-							<li>
+							<!-- <li>
 								&#8250;
 								<a href="">Site config</a>
-							</li>
+							</li> -->
 						</ul>
 					</li>
 					<li class="upp">
@@ -75,10 +75,10 @@
 								&#8250;
 								<%= link_to "Add new Dataset", new_dataset_path %>
 							</li>
-							<li>
+							<!-- <li>
 								&#8250;
 								<a href="">Add new gallery</a>
-							</li>
+							</li> -->
 							<li>
 								&#8250;
 								<a href="">Categories</a>
@@ -90,16 +90,16 @@
 						<ul>
 							<li>
 								&#8250;
-								<a href="">Show all uses</a>
+								<%= link_to "Show all users", app_users_path %>
 							</li>
-							<li>
+							<!-- <li>
 								&#8250;
 								<a href="">Add new user</a>
 							</li>
 							<li>
 								&#8250;
 								<a href="">Lock users</a>
-							</li>
+							</li> -->
 						</ul>
 					</li>
 					<li class="upp">
@@ -107,11 +107,11 @@
 						<ul>
 							<li>
 								&#8250;
-								<a href="">Site configuration</a>
+								<a href="">Change Password</a>
 							</li>
 							<li>
 								&#8250;
-								<a href="">Contact Form</a>
+								<a href="">Site Configuration</a>
 							</li>
 						</ul>
 					</li>
@@ -127,15 +127,15 @@
 						<li class="b1">
 							<a class="icon view_page" href="/">Home</a>
 						</li>
-						<li class="b2">
+						<!-- <li class="b2">
 							<a class="icon report" href="">Reports</a>
-						</li>
-						<li class="b1">
+						</li> -->
+						<li class="b2">
 							<%= link_to "Add new Dataset", new_dataset_path, :class => "icon add_page" %>
 						</li>
-						<li class="b2">
+						<!-- <li class="b1">
 							<a class="icon config" href="">Site config</a>
-						</li>
+						</li> -->
 					</ul>
 				</div>
 
@@ -148,9 +148,9 @@
 						<li class="b2">
 							<%= link_to "Add new Dataset", new_dataset_path, :class => "icon add_page" %>
 						</li>
-						<li class="b1">
+						<!-- <li class="b1">
 							<a class="icon photo" href="">Add new gallery</a>
-						</li>
+						</li> -->
 						<li class="b2">
 							<a class="icon category" href="">Categories</a>
 						</li>
@@ -160,25 +160,29 @@
 					<div class="h_title">&#8250; Users</div>
 					<ul>
 						<li class="b1">
-							<a class="icon users" href="">Show all users</a>
+							<!-- <a class="icon users" href="">Show all users</a> -->
+							<%= link_to "Show all users", app_users_path, :class => "icon users" %>
 						</li>
-						<li class="b2">
+						<!-- <li class="b2">
 							<a class="icon add_user" href="">Add new user</a>
 						</li>
 						<li class="b1">
 							<a class="icon block_users" href="">Lock users</a>
-						</li>
+						</li> -->
 					</ul>
 				</div>
 				<div class="box">
 					<div class="h_title">&#8250; Settings</div>
 					<ul>
 						<li class="b1">
-							<a class="icon config" href="">Site configuration</a>
+							<a class="icon block_users" href="">Change Password</a>
 						</li>
 						<li class="b2">
-							<a class="icon contact" href="">Contact Form</a>
+							<a class="icon config" href="">Site configuration</a>
 						</li>
+						<!-- <li class="b2">
+							<a class="icon contact" href="">Site configuration</a>
+						</li> -->
 					</ul>
 				</div>
 			</div>
@@ -191,19 +195,19 @@
 		<div id="footer">
 			<div class="left">
 				<p>
-					Design:
-					<a href="http://kilab.pl">Paweł Balicki</a>
+					Copyright
+					<a href="http://data.gov.in/appschallenge" target="_blank">OpenDataApps</a> 2013
 					| Admin Panel:
-					<a href="">YourSite.com</a>
+					<a href="<%= root_url %>">OpenDataAdmin</a>
 				</p>
 			</div>
-			<div class="right">
+			<!-- <div class="right">
 				<p>
 					<a href="">Example link 1</a>
 					|
 					<a href="">Example link 2</a>
 				</p>
-			</div>
+			</div> -->
 		</div>
 	</div>
 

@@ -12,11 +12,7 @@ class Api::V1::Services::Iphone::SyncController < ApplicationController
     if @user
       render :json  => @user.recently_viewed_datasets
     else
-      render :json => {
-        :status   => false,
-        :body     => nil,
-        :message  => "User not found. Please check username."
-      }
+      render :json => []
     end
   end
 
@@ -51,11 +47,7 @@ class Api::V1::Services::Iphone::SyncController < ApplicationController
         :only => [:_id, :title, :description]
         )
     else
-      render :json => {
-        :status   => false,
-        :body     => nil,
-        :message  => "User not found. Please check username."
-      }
+      render :json => []
     end
   end
 

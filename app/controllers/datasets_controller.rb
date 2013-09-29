@@ -49,6 +49,7 @@ class DatasetsController < ApplicationController
         format.html { redirect_to @dataset, notice: 'Dataset was successfully created.' }
       else
         @dataset = Dataset.new(params[:dataset])
+        flash[:error] = 'There was some problem saving this dataset. Please verify the Source File. (Allowed extensions .xls | .csv)'
         format.html { render action: "new" }
       end
     end
@@ -70,11 +71,11 @@ class DatasetsController < ApplicationController
 
   def destroy
     @dataset = Dataset.find(params[:id])
+    model_full_filename = Rails.root.to_s + "app/models/" + @dataset.model_filename
+    # raise File.exists?(model_full_filename).inspect
+    eval(@dataset.model_classname).destroy_all
+    File.delete(model_full_filename) if File.exists?(model_full_filename)
     @dataset.destroy
-
-    respond_to do |format|
-      format.html { redirect_to datasets_url }
-      format.json { head :no_content }
-    end
+    redirect_to datasets_url
   end
 end

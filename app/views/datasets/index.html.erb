@@ -3,7 +3,8 @@
   <div class="h_title">Manage Datasets</div>
   <h2>Listing datasets</h2>
   <p>
-    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diamvolupt
+    List of all the datasets imported from Government fo India Data Portal. Import a new dataset using the <b>"Add New Dataset"</b> button provided below. <br>
+    <b>Note : </b>Please a add a relevant description to the dataset so that the users viewing the data can know more about the dataset.
   </p>
 
   <div class="entry">
@@ -12,7 +13,7 @@
   <table id="datasets">
     <thead>
       <tr>
-        <th scope="col">ID</th>
+        <!-- <th scope="col">ID</th> -->
         <th scope="col">Title</th>
         <th scope="col">Author</th>
         <th scope="col">Category</th>
@@ -23,15 +24,15 @@
     <tbody>
       <% @datasets.each do |dataset| %>
       <tr>
-        <td class="align-center">1</td>
+        <!-- <td class="align-center">1</td> -->
         <td><%= link_to dataset.title.titleize, dataset_path(dataset) %></td>
         <td>Admin</td>
         <td>-</td>
         <td><%= dataset.created_at %></td>
         <td>
-          <a href="#" class="table-icon view" title="View"></a>
-          <a href="#" class="table-icon delete" title="Delete"></a>
-          <a href="#" class="table-icon archive" title="Archive"></a>
+          <%= link_to "", dataset_path(dataset), :class => "table-icon view" %>
+          <%= link_to '', dataset_path(dataset), :confirm => 'Are you sure?', :method => :delete, :class => "table-icon delete" %>
+          <!-- <a href="#" class="table-icon archive" title="Archive"></a> -->
         </td>
       </tr>
       <% end %>

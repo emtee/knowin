@@ -12,11 +12,10 @@
   <div class="element">
     <label for="name">
       Dataset title
-      <span class="red">(required)</span>
     </label>
     <%= f.text_field :title, :class => "text" %>
   </div>
-  <div class="element">
+  <!-- <div class="element">
     <label for="category">
       Category
       <span class="red">(required)</span>
@@ -27,7 +26,7 @@
       <option value="2">Category 4</option>
       <option value="3">Category 3</option>
     </select>
-  </div>
+  </div> -->
   <!-- <div class="element">
     <label for="comments">Comments</label>
     <input type="radio" name="comments" value="on" checked="checked" />
@@ -36,7 +35,11 @@
     Disabled
   </div> -->
   <div class="element">
-    <label for="attach">Dataset Source file</label>
+    <label for="attach">
+      Dataset Source file 
+      <span class="red">(required)</span>
+      <span>(Allowed extensions .xls | .csv)</span>
+    </label>
     <%= file_field_tag :source_file %>
   </div>
   <div class="element">

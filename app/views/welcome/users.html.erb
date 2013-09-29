@@ -1,0 +1,60 @@
+<%= render "/commons/error_messages" %>
+<div class="full_w">
+  <div class="h_title">iPhone App Users</div>
+  <h2>Listing Users</h2>
+  <p>
+    List of all the users using OpenDataApp iphone application and their respective datasets count, that they have subscribed for.
+  </p>
+
+  <div class="entry">
+    <div class="sep"></div>
+  </div>
+  <table id="datasets">
+    <thead>
+      <tr>
+        <!-- <th scope="col">ID</th> -->
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
+        <th scope="col">Created On</th>
+        <th scope="col">Datasets Subscribed</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+      <tr>
+        <!-- <td class="align-center">1</td> -->
+        <td><%= user.username %></td>
+        <td><%= user.email %></td>
+        <td><%= user.created_at %></td>
+        <td><%= user.datasets.count %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="entry">
+    <!-- <div class="pagination">
+      <span>« First</span>
+      <span class="active">1</span>
+      <a href="">2</a>
+      <a href="">3</a>
+      <a href="">4</a>
+      <span>...</span>
+      <a href="">23</a>
+      <a href="">24</a>
+      <a href="">Last »</a>
+    </div> -->
+    <div class="sep"></div>
+    <!-- <%#= link_to 'Add New Dataset', new_dataset_path, :class => "button add" %>
+    <a class="button" href="">Categories</a> -->
+  </div>
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $("#datasets").dataTable({
+    "sPaginationType": "full_numbers",
+    "bJQueryUI": true
+  });
+});
+</script>

@@ -4,6 +4,11 @@ class WelcomeController < ApplicationController
   require 'fileutils'
   # require 'iconv'
 
+  def users
+    @users = User.all
+    render :users
+  end
+
   # http://stackoverflow.com/questions/6061838/running-a-constructer-from-within-a-controller
   def upload
 
@@ -69,10 +74,11 @@ CODE
     redirect_to root_path
   end
 
-  def create_default_admin
-    user = User.new({:email => "amit.scorpio42@gmail.com", :username => "admin", :password => "Password@1234", 
-      :password_confirmation => "Password@1234"})
-    user.save
-    redirect_to root_path
-  end
+  # def create_default_admin
+  #   user = User.new({:email => "amit.scorpio42@gmail.com", :username => "admin", :password => "Password@1234", 
+  #     :password_confirmation => "Password@1234"})
+  #   user.save
+  #   redirect_to root_path
+  # end
+
 end

@@ -15,9 +15,6 @@ class Dataset
 
   has_and_belongs_to_many :users
 
-  # after_save    :update_user_count
-  # after_destroy :update_user_count
-
   # scope :recently_viewed
   scope :most_popular, lambda{|x=5| desc(:user_count).limit(x)}
   scope :newly_added, lambda{|x=5| desc(:created_at).limit(x)}
@@ -26,12 +23,16 @@ class Dataset
     all.each do |d|
       d.update_attribute(:user_count, d.users.count)
     end
-  end  
+  end
 
   def init_model
     my_klass        = Object.const_set(model_classname, Class.new)
-    my_klass.class_eval File.open(Rails.root+"app/models/"+model_filename).read #initializing the model for use
+    my_klass.class_eval File.open(full_model_filename).read.gsub("class #{model_classname}\n", '').gsub("end       \n", "") #initializing the model for use
     eval(model_classname)
+  end
+
+  def full_model_filename
+    Rails.root + "app/models/" + model_filename
   end
 
   def content
@@ -59,8 +60,8 @@ class Dataset
   end
 
   def self.save_data_model params
-    nu_model_name   = params[:source_file].original_filename.split(".")[0].downcase.underscore
-    class_name      = nu_model_name.classify
+    nu_model_name   = params[:source_file].original_filename.split(".")[0].downcase.underscore rescue nil
+    class_name      = nu_model_name.classify rescue nil
     result          = nil 
 
     filetype        = params[:source_file].original_filename.split(".").last rescue nil
@@ -71,7 +72,6 @@ class Dataset
     end
     return {:status => "failed"} unless result
     if result[:status] == "success"
-
       return {
         :status => "success", 
         :dataset => {
@@ -127,18 +127,18 @@ class Dataset
     # Creating a model file for requested model
     File.open(Rails.root + "app/models/#{nu_model_name}.rb", "w"){|f| f.write(
 <<-CODE
-#class #{class_name}
+class #{class_name}
   include Mongoid::Document
-  include Mongoid::Timestamps
+  # include Mongoid::Timestamps
 
   #{model_attrs.collect{|attribute| "field :#{attribute}"}.join("\n\t")}
-#end       
+end       
 CODE
     )}
     # Using the above created model file to initialize the model (Source : http://stackoverflow.com/questions/11764921/mongoid-creating-runtime-models-for-embedding)
     model_filename  = "#{Rails.root}/app/models/#{nu_model_name}.rb"
     my_klass        = Object.const_set(class_name, Class.new)
-    my_klass.class_eval File.open(model_filename).read #initializing the model for use
+    my_klass.class_eval File.open(model_filename).read.gsub("class #{class_name}\n", '').gsub("end       \n", "") #initializing the model for use
   end
 
 end

@@ -6,3 +6,6 @@
 */
 
 #dataset_content_wrapper{overflow: auto;padding-bottom: 20px;}
+.dataTables_info { width: 45% !important;}
+#dashboard-content{padding: 10px;}
+#dashboard-content p{margin: 10px 0px;}
