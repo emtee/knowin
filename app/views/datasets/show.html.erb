@@ -1,13 +1,9 @@
 <%= render "/commons/error_messages" %>
 <div class="full_w">
 	<div class="h_title">Dataset Details</div>
-	<h2>
-		<%= @dataset.title.titleize %>
-	</h2>
-	<h3 style="float:right"></h3>
-	<p>
-		<%= @dataset.description || "No description available for this dataset" %>
-	</p>
+	<h2><%= @dataset.title.titleize %></h2>
+	<p><%= @dataset.description || "No description available for this dataset" %></p>
+	<p> <b>Keywords : </b><%= @dataset.keywords || "No keywords found" %></p>
 
 	<div class="entry">
 		<div class="sep"></div>
@@ -34,10 +30,10 @@
 	<div style="clear:both"></div>
 	<div class="sep"></div>
 	<div class="entry">
-		
-		<%= link_to 'Add New Dataset', new_dataset_path, :class =>
-		"button add" %>
-		<a class="button" href="">Categories</a>
+		<%= link_to "Delete", dataset_path(@dataset), :confirm => 'Are you sure?', :method => :delete,  :class => "button delete" %>
+		<%= link_to 'Add New Dataset', new_dataset_path, :class => "button add" %>
+		<%= link_to "Datasets List", datasets_path, :class => "button" %>
+		<!-- <a class="button" href="">Categories</a> -->
 	</div>
 </div>
 

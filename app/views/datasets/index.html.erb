@@ -15,8 +15,8 @@
       <tr>
         <!-- <th scope="col">ID</th> -->
         <th scope="col">Title</th>
-        <th scope="col">Author</th>
-        <th scope="col">Category</th>
+        <!-- <th scope="col">Author</th> -->
+        <th scope="col">Keywords</th>
         <th scope="col">Created On</th>
         <th scope="col">Modify</th>
       </tr>
@@ -25,12 +25,13 @@
       <% @datasets.each do |dataset| %>
       <tr>
         <!-- <td class="align-center">1</td> -->
-        <td><%= link_to dataset.title.titleize, dataset_path(dataset) %></td>
-        <td>Admin</td>
-        <td>-</td>
+        <td><%= (link_to dataset.title.titleize, dataset_path(dataset)) rescue nil %></td>
+        <!-- <td>Admin</td> -->
+        <td><%= truncate(dataset.keywords, length: 30, omission: "...") %></td>
         <td><%= dataset.created_at %></td>
         <td>
           <%= link_to "", dataset_path(dataset), :class => "table-icon view" %>
+          <%= link_to "", edit_dataset_path(dataset), :class => "table-icon edit" %>
           <%= link_to '', dataset_path(dataset), :confirm => 'Are you sure?', :method => :delete, :class => "table-icon delete" %>
           <!-- <a href="#" class="table-icon archive" title="Archive"></a> -->
         </td>
@@ -52,7 +53,7 @@
     </div> -->
     <div class="sep"></div>
     <%= link_to 'Add New Dataset', new_dataset_path, :class => "button add" %>
-    <a class="button" href="">Categories</a>
+    <a class="button" href="/">Home</a>
   </div>
 </div>
 

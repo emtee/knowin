@@ -9,24 +9,6 @@
       </ul>
     </div>
   <% end %>
-  <div class="element">
-    <label for="name">
-      Dataset title
-    </label>
-    <%= f.text_field :title, :class => "text" %>
-  </div>
-  <!-- <div class="element">
-    <label for="category">
-      Category
-      <span class="red">(required)</span>
-    </label>
-    <select name="category" class="err">
-      <option value="0">-- select category</option>
-      <option value="1">Category 1</option>
-      <option value="2">Category 4</option>
-      <option value="3">Category 3</option>
-    </select>
-  </div> -->
   <!-- <div class="element">
     <label for="comments">Comments</label>
     <input type="radio" name="comments" value="on" checked="checked" />
@@ -34,6 +16,7 @@
     <input type="radio" name="comments" value="off" />
     Disabled
   </div> -->
+  <% unless @no_upload.present? %>
   <div class="element">
     <label for="attach">
       Dataset Source file 
@@ -41,6 +24,14 @@
       <span>(Allowed extensions .xls | .csv)</span>
     </label>
     <%= file_field_tag :source_file %>
+  </div>
+  <% end %>
+  <div class="element">
+    <label for="name">
+      Dataset title
+      <span>(Optional) If left blank, title will automatically be selected based on source file</span>
+    </label>
+    <%= f.text_field :title, :class => "text" %>
   </div>
   <div class="element">
     <label for="content">
@@ -50,9 +41,16 @@
     <%= f.text_area :description, :rows => 5, :class => "textarea" %>
     <!-- <textarea name="content" class="textarea" rows="10"></textarea> -->
   </div>
+  <div class="element">
+    <label for="category">
+      Keywords
+    </label>
+    <%= f.text_field :keywords, :class => "text" %>
+  </div>
   <div class="entry">
     <!-- <button type="submit">Preview</button> -->
     <button type="submit" class="add">Save Dataset</button>
-    <button class="cancel">Cancel</button>
+    <%= link_to "Cancel", datasets_path, :class => "button cancel" %>
+    <!-- <button class="cancel">Cancel</button> -->
   </div>
 <% end %>

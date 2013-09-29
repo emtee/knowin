@@ -32,16 +32,24 @@ class DatasetsController < ApplicationController
   end
 
   def edit
-    @dataset = Dataset.find(params[:id])
+    @no_upload  = true
+    @dataset    = Dataset.find(params[:id])
   end
 
   def create
     respond_to do |format|
-      result = Dataset.save_data_model params
+      result = Hash.new
+      # begin
+        result = Dataset.save_data_model params
+      # rescue Exception => e
+      #   puts e.inspect
+      # end
       if result[:status] == "success"
         dataset_exists = Dataset.find_by(title: result[:dataset][:title]).present? rescue nil
         unless dataset_exists
+          puts result[:dataset].inspect
           @dataset = Dataset.new(result[:dataset])
+          puts @dataset.inspect
           @dataset.save!
         else
           @dataset = Dataset.find_by(title: result[:dataset][:title])
@@ -49,14 +57,15 @@ class DatasetsController < ApplicationController
         format.html { redirect_to @dataset, notice: 'Dataset was successfully created.' }
       else
         @dataset = Dataset.new(params[:dataset])
-        flash[:error] = 'There was some problem saving this dataset. Please verify the Source File. (Allowed extensions .xls | .csv)'
+        flash[:error] = 'There was some problem saving this dataset. Please verify the Source File & its contents. (Allowed extensions .xls | .csv)'
         format.html { render action: "new" }
       end
     end
   end
 
   def update
-    @dataset = Dataset.find(params[:id])
+    @dataset    = Dataset.find(params[:id])
+    @no_upload  = true
 
     respond_to do |format|
       if @dataset.update_attributes(params[:dataset])
@@ -71,11 +80,11 @@ class DatasetsController < ApplicationController
 
   def destroy
     @dataset = Dataset.find(params[:id])
-    model_full_filename = Rails.root.to_s + "app/models/" + @dataset.model_filename
+    model_full_filename = Rails.root + "app/models/" + @dataset.model_filename
     # raise File.exists?(model_full_filename).inspect
     eval(@dataset.model_classname).destroy_all
-    File.delete(model_full_filename) if File.exists?(model_full_filename)
+    File.delete(model_full_filename) #if File.exists?(model_full_filename)
     @dataset.destroy
-    redirect_to datasets_url
+    redirect_to datasets_url, notice: "Dataset was destroyed successfully."
   end
 end
