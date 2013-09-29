@@ -9,6 +9,24 @@ class Dataset
   field :description, type: String
   field :model_classname, type: String
   field :model_filename, type: String
+  field :user_count
+
+  # attr_accessible :user_count, :id
+
+  has_and_belongs_to_many :users
+
+  # after_save    :update_user_count
+  # after_destroy :update_user_count
+
+  # scope :recently_viewed
+  scope :most_popular, lambda{|x=5| desc(:user_count).limit(x)}
+  scope :newly_added, lambda{|x=5| desc(:created_at).limit(x)}
+
+  def self.update_user_count
+    all.each do |d|
+      d.update_attribute(:user_count, d.users.count)
+    end
+  end  
 
   def init_model
     my_klass        = Object.const_set(model_classname, Class.new)
@@ -17,7 +35,27 @@ class Dataset
   end
 
   def content
-    Dataset.first.init_model.all.as_json
+    humanize_content(
+      Dataset.first.init_model.all.as_json(
+          :except => [:created_at, :updated_at, :_id],
+        )
+      ) 
+  end
+
+  def humanize_content target_json
+    target_json.collect do |obj|
+      hsh = Hash.new
+      obj.each do |key, val|
+        hsh[key.humanize] = val
+      end
+      hsh
+    end
+    # hash.inject({}){|new_hash, key_value|
+    #   key, value = key_value
+    #   raise key_value.inspect
+    #   new_hash[key.humanize] = value
+    #   new_hash
+    # }
   end
 
   def self.save_data_model params
@@ -33,6 +71,7 @@ class Dataset
     end
     return {:status => "failed"} unless result
     if result[:status] == "success"
+
       return {
         :status => "success", 
         :dataset => {

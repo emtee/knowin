@@ -1,4 +1,28 @@
 Govindata::Application.routes.draw do
+
+
+  namespace :api do
+    namespace :v1 do
+      namespace :services do
+        namespace :iphone do
+          resources :basic do
+            collection do
+              post "signup"
+              post "authenticate"
+              post "get_datasets"
+              post "update_settings"
+            end
+          end
+          resources :sync do
+            collection do
+              get "/:action"
+            end
+          end
+        end
+      end
+    end
+  end
+
   # match "/create_default_admin" => "welcome#create_default_admin"
   authenticated :user do
     # root :to => "home#index"

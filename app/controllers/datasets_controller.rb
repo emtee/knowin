@@ -1,5 +1,6 @@
 class DatasetsController < ApplicationController
   before_filter :authenticate_user!
+  protect_from_forgery
 
   def index
     @datasets = Dataset.all
@@ -41,7 +42,7 @@ class DatasetsController < ApplicationController
         dataset_exists = Dataset.find_by(title: result[:dataset][:title]).present? rescue nil
         unless dataset_exists
           @dataset = Dataset.new(result[:dataset])
-          @dataset.save
+          @dataset.save!
         else
           @dataset = Dataset.find_by(title: result[:dataset][:title])
         end

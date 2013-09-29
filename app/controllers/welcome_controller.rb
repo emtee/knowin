@@ -1,4 +1,6 @@
 class WelcomeController < ApplicationController
+  before_filter :authenticate_user!
+  protect_from_forgery
   require 'fileutils'
   # require 'iconv'
 
