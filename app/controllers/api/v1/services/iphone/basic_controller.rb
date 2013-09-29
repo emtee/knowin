@@ -77,7 +77,7 @@ class Api::V1::Services::Iphone::BasicController < ApplicationController
   end
 
   def update_settings
-    @user = user.find_by(username: params[:username])
+    @user = User.find_by(username: params[:username])
     @user.password = params[:password]
     @user.password_confirmation = params[:password]
     @user.dashboard = params[:dashboard]    
