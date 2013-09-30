@@ -43,7 +43,7 @@ class Dataset
       init_model.all.as_json(
           :except => [:created_at, :updated_at, :_id],
         )
-      )  rescue nil
+      )  rescue []
   end
 
   def humanize_content target_json

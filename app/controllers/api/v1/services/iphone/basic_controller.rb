@@ -66,14 +66,32 @@ class Api::V1::Services::Iphone::BasicController < ApplicationController
     else
       render :json => {
         :status   => false,
-        :body     => (@user.errors rescue nil),
+        :body     => (@user.errors rescue []),
         :message  => "Sorry there was some problem saving the datasets. Try again later."
       }
     end
   end
 
   def remove_datasets
-    # Will do in next relelase
+    @user = User.find_by(username: params[:username]) rescue nil
+    eval(params[:datasets_ids]).each do |dataset_id|
+        @user.dataset_ids.delete(Moped::BSON::ObjectId.from_string(dataset_id))
+    end if @user
+    if @user && @user.save
+      render :json => {
+        :status   => true,
+        :body     => @user.datasets.as_json(
+          :only => [:_id, :title, :description]
+        ),
+        :message  => "Datasets removed to your account successfully"
+      }
+    else
+      render :json => {
+        :status   => false,
+        :body     => (@user.errors rescue []),
+        :message  => "Sorry there was some problem removing the datasets. Try again later."
+      }
+    end
   end
 
   def update_settings

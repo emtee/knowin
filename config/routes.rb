@@ -10,6 +10,7 @@ Govindata::Application.routes.draw do
               post "signup"
               post "authenticate"
               post "get_datasets"
+              post "remove_datasets"
               post "update_settings"
             end
           end
