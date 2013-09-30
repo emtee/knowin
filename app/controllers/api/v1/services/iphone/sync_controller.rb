@@ -1,10 +1,15 @@
 class Api::V1::Services::Iphone::SyncController < ApplicationController
   def dashboard_content
-    render :json => {
-      "recently_viewed"   => Dataset.all,
-      "most_popular"      => Dataset.all,
-      "newly_added"       => Dataset.all
-    }
+    @user = User.find_by(username: params[:username]) rescue nil
+    if @user
+      render :json => {
+        "recently_viewed"   => @user.recently_viewed_datasets,
+        "most_popular"      => Dataset.most_popular,
+        "newly_added"       => Dataset.newly_added
+      }
+    else
+      render :json => []
+    end
   end
 
   def recently_viewed

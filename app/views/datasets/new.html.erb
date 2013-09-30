@@ -1,5 +1,13 @@
 <%= render "/commons/error_messages" %>
 <div class="full_w">
 	<div class="h_title">Add new Dataset</div>
+	<!-- <h2>Listing datasets</h2> -->
+	<p>
+		<b>Note :</b> You can download dataset source files from <%= link_to "Govt of India Data Portal", 'http://data.gov.in/catalogs/', :include => "_blank" %>
+	</p>
+
+	<!-- <b>Note : </b>Please a add a relevant description to the dataset so that the users viewing the data can know more about the dataset.
+	</p> -->
+
 	<%= render 'form' %>
 </div>

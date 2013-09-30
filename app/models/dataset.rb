@@ -29,12 +29,12 @@ class Dataset
   end
 
   def init_model
-    puts "------------------------"
-    puts model_classname.inspect
-    puts full_model_filename.inspect
-    puts Rails.root.to_s.inspect
-    puts Rails.root.inspect
-    puts "------------------------"
+    # puts "------------------------"
+    # puts model_classname.inspect
+    # puts full_model_filename.inspect
+    # puts Rails.root.to_s.inspect
+    # puts Rails.root.inspect
+    # puts "------------------------"
     puts model_classname.inspect
     puts full_model_filename.inspect
     my_klass        = Object.const_set(model_classname, Class.new)
