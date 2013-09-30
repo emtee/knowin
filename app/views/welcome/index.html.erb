@@ -31,21 +31,21 @@
 	<div class="stats">
 		<div class="today">
 			<h3>Today</h3>
-			<p class="count">2 349</p>
-			<p class="type">Visits</p>
-			<p class="count">96</p>
-			<p class="type">Comments</p>
-			<p class="count">9</p>
-			<p class="type">Articles</p>
+			<p class="count"><%= Dataset.where(:created_at => Date.today).count rescue "0" %></p>
+			<p class="type">New Datasets</p>
+			<p class="count"><%= Dataset.where(:created_at => Date.today).collect(&:keywords).join().split(",").uniq.size rescue "0" %></p>
+			<p class="type">Dataset Types</p>
+			<p class="count"><%= User.where(:created_at => Date.today).count rescue "0" %></p>
+			<p class="type">Users Signed Up</p>
 		</div>
 		<div class="week">
 			<h3>Last week</h3>
-			<p class="count">12 931</p>
-			<p class="type">Visits</p>
-			<p class="count">521</p>
-			<p class="type">Comments</p>
-			<p class="count">38</p>
-			<p class="type">Articles</p>
+			<p class="count"><%= Dataset.where(:created_at.gte => (Date.today - 1.week)).count rescue "0" %></p>
+			<p class="type">New Datasets</p>
+			<p class="count"><%= Dataset.where(:created_at.gte => (Date.today - 1.week)).collect(&:keywords).join().split(",").uniq.size rescue "0" %></p>
+			<p class="type">Dataset Types</p>
+			<p class="count"><%= User.where(:created_at.gte => (Date.today - 1.week)).count rescue "0" %></p>
+			<p class="type">Users Signed Up</p>
 		</div>
 	</div>
 </div>
