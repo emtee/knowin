@@ -29,8 +29,12 @@ class Dataset
   end
 
   def init_model
+    logger.debug "------------------------"
     logger.debug model_classname.inspect
-    logger.debug full_model_filename
+    logger.debug full_model_filename.inspect
+    logger.debug Rails.root.to_s.inspect
+    logger.debug Rails.root.inspect
+    logger.debug "------------------------"
     puts model_classname.inspect
     puts full_model_filename.inspect
     my_klass        = Object.const_set(model_classname, Class.new)
@@ -39,7 +43,8 @@ class Dataset
   end
 
   def full_model_filename
-    Rails.root + "app/models/" + model_filename
+    # Rails.root + "app/models/" + model_filename
+    Rails.root.join('app', 'models', model_filename)
   end
 
   def content
