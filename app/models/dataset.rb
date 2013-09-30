@@ -29,6 +29,10 @@ class Dataset
   end
 
   def init_model
+    logger.debug model_classname.inspect
+    logger.debug full_model_filename
+    puts model_classname.inspect
+    puts full_model_filename.inspect
     my_klass        = Object.const_set(model_classname, Class.new)
     my_klass.class_eval File.open(full_model_filename).read.gsub("class #{model_classname}\n", '').gsub("end       \n", "") #initializing the model for use
     eval(model_classname)
@@ -43,7 +47,7 @@ class Dataset
       init_model.all.as_json(
           :except => [:created_at, :updated_at, :_id],
         )
-      )  rescue []
+      )  #rescue []
   end
 
   def humanize_content target_json

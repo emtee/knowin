@@ -18,7 +18,7 @@
         <!-- <th scope="col">Author</th> -->
         <th scope="col">Keywords</th>
         <th scope="col">Created On</th>
-        <th scope="col">Modify</th>
+        <th scope="col">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -29,7 +29,7 @@
         <!-- <td>Admin</td> -->
         <td><%= truncate(dataset.keywords, length: 30, omission: "...") %></td>
         <td><%= dataset.created_at %></td>
-        <td>
+        <td style="width:65px;">
           <%= link_to "", dataset_path(dataset), :class => "table-icon view" %>
           <%= link_to "", edit_dataset_path(dataset), :class => "table-icon edit" %>
           <%= link_to '', dataset_path(dataset), :confirm => 'Are you sure?', :method => :delete, :class => "table-icon delete" %>
