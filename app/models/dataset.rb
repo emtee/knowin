@@ -142,7 +142,8 @@ class Dataset
 
   def self.create_model class_name, model_attrs, nu_model_name
     # Creating a model file for requested model
-    File.open(Rails.root + "app/models/#{nu_model_name}.rb", "w"){|f| f.write(
+    # File.open(Rails.root + "app/models/#{nu_model_name}.rb", "w"){|f| f.write(
+    File.open(Rails.root + Rails.root.join('app', 'models', (nu_model_name+".rb")), "w"){|f| f.write(
 <<-CODE
 class #{class_name}
   include Mongoid::Document
