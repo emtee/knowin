@@ -9,6 +9,7 @@ class Dataset
   field :description, type: String
   field :model_classname, type: String
   field :model_filename, type: String
+  field :model_attrs
   field :user_count
   field :keywords
 
@@ -29,12 +30,10 @@ class Dataset
   end
 
   def init_model
-    # puts "------------------------"
-    # puts model_classname.inspect
-    # puts full_model_filename.inspect
-    # puts Rails.root.to_s.inspect
-    # puts Rails.root.inspect
-    # puts "------------------------"
+    unless File.exists?(full_model_filename)
+      puts "-----------"+full_model_filename.inspect+"-----------"
+      Dataset.create_model model_classname, model_attrs, model_filename.gsub(".rb", "") #because .rb will be added when creating the model
+    end
     puts model_classname.inspect
     puts full_model_filename.inspect
     my_klass        = Object.const_set(model_classname, Class.new)
@@ -90,7 +89,8 @@ class Dataset
           :title => params[:dataset][:title].blank? ? params[:source_file].original_filename.split(".")[0].titleize : params[:dataset][:title] , 
           :description => params[:dataset][:description],  
           :keywords => params[:dataset][:keywords],  
-          :model_classname => class_name, :model_filename => nu_model_name+".rb"
+          :model_classname => class_name, :model_filename => nu_model_name+".rb",
+          :model_attrs => result[:model_attrs]
           }
         }
     else
@@ -105,24 +105,24 @@ class Dataset
     # raise sheet1.row(0).formatted.inspect
 
     # model_attrs = sheet1.row(0).formatted.collect{|x| x.downcase.gsub("&","n").gsub(".","").gsub(" ","_").underscore.to_sym}
-    model_attrs     = sheet1.row(0).formatted.collect{|x| (x.gsub("%","percent").gsub("&","n").gsub(".","").parameterize.underscore rescue nil)}.compact
-    model_attrs     = model_attrs.collect{|x| x.match(/^[0-9]/).present? ? "_#{x}".to_sym : x.to_sym }
+    @model_attrs     = sheet1.row(0).formatted.collect{|x| (x.gsub("%","percent").gsub("&","n").gsub(".","").parameterize.underscore rescue nil)}.compact
+    @model_attrs     = @model_attrs.collect{|x| x.match(/^[0-9]/).present? ? "_#{x}".to_sym : x.to_sym }
 
     # model_attrs.shift #removing first element
 
-    create_model(class_name, model_attrs, nu_model_name)
+    create_model(class_name, @model_attrs, nu_model_name)
     # Uploading file contents
     sheet1.each 1 do |row|
       obj_attrs = Hash.new
       0.upto sheet1.last_row_index do |index|
         ## model_attrs[index-1] coz we have already pushed the first element outta model_attrs
         # obj_attrs.merge!({model_attrs[index-1].to_sym => row[index]}) rescue nil
-        obj_attrs.merge!({model_attrs[index].to_sym => row[index]}) rescue nil
+        obj_attrs.merge!({@model_attrs[index].to_sym => row[index]}) rescue nil
       end
       # Dont save if the row is empty
       @new_obj = eval(class_name).create!(obj_attrs) unless obj_attrs.values.compact.size == 0
     end
-    return {:status => "success"}
+    return {:status => "success", :model_attrs => @model_attrs}
   end
 
   def self.read_csv params, nu_model_name, class_name
@@ -131,13 +131,13 @@ class Dataset
       eval(class_name).destroy_all
     else
       # raise csv.first.keys.collect{|x|x.to_s.parameterize.underscore.squeeze("_")}.inspect
-      model_attrs = csv.first.keys.collect{|x|x.to_s.parameterize.underscore.squeeze("_")}
-      create_model(class_name, model_attrs, nu_model_name)
+      @model_attrs = csv.first.keys.collect{|x|x.to_s.parameterize.underscore.squeeze("_")}
+      create_model(class_name, @model_attrs, nu_model_name)
     end
     csv.each do |row|
       eval(class_name).create!(Hash[row.map{|k,v| [k.to_s.parameterize.underscore.squeeze("_"), v]}]) 
     end
-    return {:status => "success"}
+    return {:status => "success", :model_attrs => @model_attrs }
   end
 
   def self.create_model class_name, model_attrs, nu_model_name
