@@ -25,6 +25,7 @@ Govindata::Application.routes.draw do
   end
 
   get "/iphone_app_users" => "welcome#users", :as => :app_users
+  get "/reset_password" => "welcome#reset_password"
 
   # match "/create_default_admin" => "welcome#create_default_admin"
   authenticated :user do

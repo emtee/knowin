@@ -1,16 +1,18 @@
-<%#= devise_error_messages! %>
 <%= render "/commons/error_messages" %>
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-		<label for="login">Username:</label>
-		<!-- <input id="login" name="login" class="text" /> -->
-		<%= f.text_field :username, :autofocus => true, :class => "text" %>
-		<label for="pass">Password:</label>
-		<!-- <input id="pass" name="pass" type="password" class="text" /> -->
-		<%= f.password_field :password, :class=>"text" %>
-		<div class="sep"></div>
-		<%#= f.button "Login", :class => "ok" %>
-		<button type="submit" class="ok">Login</button> 
-		<!-- <a class="button" href="">Forgotten password?</a> -->
+	<%= devise_error_messages! %>
+	<%= token_tag nil %>
+	<label for="login">Username:</label>
+	<!-- <input id="login" name="login" class="text" /> -->
+	<%= f.text_field :username, :autofocus => true, :class => "text" %>
+	<label for="pass">Password:</label>
+	<!-- <input id="pass" name="pass" type="password" class="text" /> -->
+	<%= f.password_field :password, :class=>"text" %>
+	<div class="sep"></div>
+	<%#= f.button "Login", :class => "ok" %>
+	<button type="submit" class="ok">Login</button> 
+	<!-- <a class="button" href="">Forgotten password?</a> -->
+	<%= link_to "Sign Up", new_user_registration_path, :class => "button" %>
 <% end %>
 	
 
